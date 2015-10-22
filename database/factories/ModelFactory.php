@@ -31,3 +31,15 @@ $factory->define(CodeProject\Entities\Client::class, function (Faker\Generator $
         'obs'     => $faker->sentence
     ];
 });
+
+$factory->define(CodeProject\Entities\Project::class, function (Faker\Generator $faker) {
+    return [
+            'owner_id'    => $faker->numberBetween(1,1),
+            'client_id'   => $faker->numberBetween(1,10),
+            'name'        => $faker->word,
+            'description' => $faker->paragraph,
+            'progress'    => $faker->numberBetween(1,10),
+            'status'      => $faker->numberBetween(1,10),
+            'due_date'    => $faker->date()
+    ];
+});
