@@ -5,7 +5,10 @@ namespace CodeProject\Services;
 
 use CodeProject\Repositories\ClientRepository;
 use CodeProject\Validators\ClientValidator;
+use Illuminate\Database\QueryException;
 use Prettus\Validator\Exceptions\ValidatorException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+
 
 class ClientService
 {
@@ -36,7 +39,15 @@ class ClientService
     {
         try {
             $this->validator->with($data)->passesOrFail();
-            $this->repository->update($data,$id);
+            try {
+                $this->repository->update($data, $id);
+            } catch (ModelNotFoundException $e) {
+
+                return [
+                    'error' => true,
+                    'message' => 'Projeto Nao Existe'
+                ];
+            }
             return ['error' => false, 'message' => 'success'];
         } catch(ValidatorException $e) {
 
@@ -44,6 +55,33 @@ class ClientService
                 'error' => true,
                 'message' => $e->getMessageBag()
             ];
+        }
+    }
+    public function show($id)
+    {
+        try {
+            return $this->repository->find($id);
+        }
+        catch(ModelNotFoundException $e)
+        {
+            return response()->json(['error' => true, 'message' => 'Client Nao Existe']);
+        }
+
+    }
+    public function destroy($id)
+    {
+        try {
+            $this->repository->delete($id);
+            return ['error' => false, 'message' => 'success'];
+        }
+        catch(\Exception $e)
+        {
+            if ($e instanceof ModelNotFoundException)
+               return response()->json(['error' => true, 'message' => 'Client Nao Existe']);
+            elseif ($e instanceof QueryException)
+               return response()->json(['error' => true, 'message' => 'Existe(m) Project(s) Atrelados a Esse Client']);
+            else
+               return response()->json(['error' => true, 'message' => $e->getMessage()]);
         }
     }
 }

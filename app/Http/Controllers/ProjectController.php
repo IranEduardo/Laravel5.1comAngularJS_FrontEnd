@@ -30,7 +30,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return  $this->repository->with(['user','client'])->all();
+        return  $this->repository->with(['owner','client'])->all();
     }
 
 
@@ -47,7 +47,7 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        return $this->repository->with(['user','client'])->find($id);
+       return $this->service->show($id);
     }
 
     /**
@@ -70,7 +70,6 @@ class ProjectController extends Controller
      */
     public function destroy($id)
     {
-        $this->repository->delete($id);
-        return ['error' => false, 'message' => 'success'];
+       return $this->service->destroy($id);
     }
 }
