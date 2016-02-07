@@ -70,6 +70,22 @@ class ProjectController extends Controller
      */
     public function destroy($id)
     {
-       return $this->service->destroy($id);
+        return $this->service->destroy($id);
     }
+
+    public function store_member(Request $request)
+    {
+        return $this->service->addMember($request->all());
+    }
+
+    public function destroy_member($id, $idUser)
+    {
+       return $this->service->removeMember($id,$idUser);
+    }
+
+    public function index_members($id)
+    {
+        return $this->repository->find($id)->members;
+    }
+
 }

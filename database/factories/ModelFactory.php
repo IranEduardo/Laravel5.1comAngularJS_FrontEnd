@@ -43,3 +43,45 @@ $factory->define(CodeProject\Entities\Project::class, function (Faker\Generator 
             'due_date'    => $faker->date()
     ];
 });
+
+$factory->define(CodeProject\Entities\Project::class, function (Faker\Generator $faker) {
+    return [
+        'owner_id'    => $faker->numberBetween(1,1),
+        'client_id'   => $faker->numberBetween(1,10),
+        'name'        => $faker->word,
+        'description' => $faker->paragraph,
+        'progress'    => $faker->numberBetween(1,10),
+        'status'      => $faker->numberBetween(1,10),
+        'due_date'    => $faker->date()
+    ];
+});
+
+$factory->define(CodeProject\Entities\ProjectNote::class, function (Faker\Generator $faker) {
+    return [
+            'project_id' => $faker->numberBetween(1,10),
+            'title'      => $faker->word,
+            'note'       => $faker->paragraph()
+    ];
+});
+
+$factory->define(CodeProject\Entities\ProjectTask::class, function (Faker\Generator $faker) {
+    return [
+            'name'        => $faker->word,
+            'project_id'  => $faker->numberBetween(1,10),
+            'start_date'  => $faker->date(),
+            'due_date'    => $faker->date(),
+            'status'      => $faker->numberBetween(1,10),
+    ];
+});
+
+$factory->define(CodeProject\Entities\ProjectMember::class, function (Faker\Generator $faker) {
+    return [
+        'project_id'  => $faker->numberBetween(1,10),
+        'user_id'     => $faker->numberBetween(1,10)
+    ];
+});
+
+
+
+
+
