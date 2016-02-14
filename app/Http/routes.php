@@ -5,6 +5,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::post('oauth/access_token', function() {
+    return Response::json(Authorizer::issueAccessToken());
+});
+
 
 Route::get('client', ['as' => 'client', 'uses' => 'ClientController@index']);
 Route::post('client', ['as' => 'client.store', 'uses' => 'ClientController@store']);
@@ -17,7 +21,7 @@ Route::post('project/member', ['as' => 'project.store_member',  'uses' => 'Proje
 Route::delete('project/{id}/member/{idUser}', ['as' => 'project.destroy_member', 'uses' => 'ProjectController@destroy_member']);
 
 
-Route::get('project', ['as' => 'project', 'uses' => 'ProjectController@index']);
+Route::get('project', ['middleware' => 'oauth', 'as' => 'project', 'uses' => 'ProjectController@index']);
 Route::post('project', ['as' => 'project.store', 'uses' => 'ProjectController@store']);
 Route::get('project/{id}', ['as' => 'project.show', 'uses' => 'ProjectController@show']);
 Route::put('project/{id}', ['as' => 'project.update', 'uses' => 'ProjectController@update']);
