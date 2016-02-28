@@ -59,6 +59,9 @@ class ProjectController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if (($this->service->checkProjectPermissions(($id))) == false)
+            return ['error' => 'Access Forbidden'];
+
         return $this->service->update($request->all(),$id);
     }
 
@@ -70,21 +73,33 @@ class ProjectController extends Controller
      */
     public function destroy($id)
     {
+        if (($this->service->checkProjectOwner(($id))) == false)
+            return ['error' => 'Access Forbidden'];
+
         return $this->service->destroy($id);
     }
 
     public function store_member(Request $request)
     {
+        if (($this->service->checkProjectOwner(($id))) == false)
+            return ['error' => 'Access Forbidden'];
+
         return $this->service->addMember($request->all());
     }
 
     public function destroy_member($id, $idUser)
     {
+        if (($this->service->checkProjectOwner(($id))) == false)
+            return ['error' => 'Access Forbidden'];
+
        return $this->service->removeMember($id,$idUser);
     }
 
     public function index_members($id)
     {
+        if (($this->service->checkProjectPermissions(($id))) == false)
+            return ['error' => 'Access Forbidden'];
+
         return $this->repository->find($id)->members;
     }
 

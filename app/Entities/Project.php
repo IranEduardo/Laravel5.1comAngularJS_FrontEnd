@@ -39,4 +39,8 @@ class Project extends Model
     {
        return $this->hasMany(ProjectTask::class);
     }
+    public function files()
+    {
+       return $this->hasMany(ProjectFile::class);
+    }
 }

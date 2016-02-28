@@ -12,6 +12,10 @@ use Prettus\Validator\Exceptions\ValidatorException;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
+use Illuminate\Contracts\Filesystem\Factory as Storage;
+use Illuminate\Filesystem\Filesystem;
+
+
 
 class ProjectService
 {
@@ -19,17 +23,21 @@ class ProjectService
    protected $repository;
    protected $validator;
 
-   protected $repositorymember;
    protected $validatormember;
 
+   protected $filesystem;
+   protected $storage;
 
-   public function __construct(ProjectRepository $repository, ProjectValidator $validator,  ProjectMemberRepository $repositorymember, ProjectMemberValidator $validatormember)
+
+   public function __construct(ProjectRepository $repository, ProjectValidator $validator, ProjectMemberValidator $validatormember, Filesystem $filesystem, Storage $storage)
    {
         $this->repository = $repository;
         $this->validator = $validator;
 
-        $this->repositorymember = $repositorymember;
         $this->validatormember  = $validatormember;
+
+        $this->filesystem = $filesystem;
+        $this->storage = $storage;
    }
 
    public function create(array $data)
@@ -125,18 +133,75 @@ class ProjectService
         return ['error' => false, 'message' => 'success'];
     }
 
-   public function isMember($id, $idUser)
+   public function checkProjectMember($id)
    {
-       try {
-           $this->repositorymember->findWhere(['project_id' => $id, 'user_id' => $idUser]);
+       $project = $this->repository->skipPresenter()->find($id);
+       $userId =  \Authorizer::getResourceOwnerId();
 
-       } catch (ModelNotFoundException $e) {
-               return [
-                   'error' => true,
-                   'message' => $e->getMessageBag()
-               ];
+       foreach ($project->members as $member) {
+           if ($member->user_id == $userId)
+               return true;
        }
-       return ['error' => false, 'message' => 'success'];
+       return false;
+   }
+   public function checkProjectOwner($id)
+   {
+       $project = $this->repository->skipPresenter()->find($id);
+       $userId =  \Authorizer::getResourceOwnerId();
+
+       if ($project->owner_id == $userId)
+           return true;
+       return false;
+   }
+   public function checkProjectPermissions($id)
+   {
+       if ($this->checkProjectMember($id) or $this->checkProjectOwner($id))
+           return true;
+       return false;
    }
 
+    public function createFile(Array $data)
+    {
+       $project = $this->repository->skipPresenter()->find($data['project_id']);
+       $projectFile =  $project->files()->create($data);
+
+       $this->storage->put($projectFile->id.".".$data['extension'],$this->filesystem->get($data['file']));
+
+       return ['error' => 'false', 'message' => 'success'];
+    }
+
+    public function destroyFile($id, $idProjectFile)
+    {
+        $project = $this->repository->skipPresenter()->find($id);
+
+        $ProjectFiles =  $project->files;
+
+        $extension = '';
+
+        foreach ($ProjectFiles as $projectFile)
+        {
+           if ($projectFile->id == $idProjectFile)
+           {
+               $extension =  $projectFile->extension;
+               $projectFile->delete();
+
+              /* try {
+
+                  $extension =  $projectFile->extension;
+                  $projectFile->delete();
+
+               } catch (ModelNotFoundException $e) {
+
+                 return response()->json(['error' => true, 'message' => 'Arquivo Nao Existe']);
+
+               } */
+           }
+        }
+
+        if ($extension)
+          $this->storage->delete($idProjectFile.".".$extension);
+
+        return response()->json(['error' => false, 'message' => 'success']);
+
+    }
 }
