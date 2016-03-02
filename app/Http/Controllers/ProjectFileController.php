@@ -28,13 +28,11 @@ class ProjectFileController extends Controller
             return ['error' => 'Access Forbidden'];
 
        $file = $request->file('file');
-       $extension = $file->getClientOriginalExtension();
 
        $data['file'] = $file;
        $data['name'] = $request->name;
        $data['project_id'] = $request->project_id;
        $data['description'] = $request->description;
-       $data['extension'] = $extension;
 
        return  $this->service->createFile($data);
     }
