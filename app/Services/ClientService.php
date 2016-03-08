@@ -25,7 +25,7 @@ class ClientService
     {
         try {
             $this->validator->with($data)->passesOrFail();
-            return $this->repository->create($data);
+            return $this->repository->skipPresenter()->create($data);
         } catch(ValidatorException $e) {
 
             return [
@@ -40,7 +40,7 @@ class ClientService
         try {
             $this->validator->with($data)->passesOrFail();
             try {
-                $this->repository->update($data, $id);
+                $this->repository->skipPresenter()->update($data, $id);
             } catch (ModelNotFoundException $e) {
 
                 return [
@@ -60,7 +60,7 @@ class ClientService
     public function show($id)
     {
         try {
-            return $this->repository->find($id);
+            return $this->repository->skipPresenter()->find($id);
         }
         catch(ModelNotFoundException $e)
         {
@@ -71,7 +71,7 @@ class ClientService
     public function destroy($id)
     {
         try {
-            $this->repository->delete($id);
+            $this->repository->skipPresenter()->delete($id);
             return ['error' => false, 'message' => 'success'];
         }
         catch(\Exception $e)

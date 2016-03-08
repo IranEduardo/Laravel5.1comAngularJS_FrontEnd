@@ -26,7 +26,7 @@ class ProjectNoteService
    {
         try {
             $this->validator->with($data)->passesOrFail();
-            return $this->repository->create($data);
+            return $this->repository->skipPresenter()->create($data);
         } catch(ValidatorException $e) {
 
             return [
@@ -41,7 +41,7 @@ class ProjectNoteService
         try {
             $this->validator->with($data)->passesOrFail();
             try {
-                $this->repository->update($data, $idNote);
+                $this->repository->skipPresenter()->update($data, $idNote);
             } catch (ModelNotFoundException $e) {
 
                 return [
@@ -61,7 +61,7 @@ class ProjectNoteService
     public function show($id, $idNote)
     {
         try {
-            return $this->repository->findWhere(['project_id' => $id, 'id' => $idNote]);
+            return $this->repository->skipPresenter()->findWhere(['project_id' => $id, 'id' => $idNote]);
         }
         catch(ModelNotFoundException $e)
         {
@@ -73,7 +73,7 @@ class ProjectNoteService
     public function index($id)
     {
         try {
-            return $this->repository->findWhere(['project_id' => $id]);
+            return $this->repository->skipPresenter()->findWhere(['project_id' => $id]);
         }
         catch(ModelNotFoundException $e)
         {
@@ -86,7 +86,7 @@ class ProjectNoteService
     public function destroy($idNote)
     {
         try {
-            $this->repository->delete($idNote);
+            $this->repository->skipPresenter()->delete($idNote);
             return ['error' => false, 'message' => 'success'];
         }
         catch(ModelNotFoundException $e)

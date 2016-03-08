@@ -30,7 +30,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return  $this->repository->with(['owner','client'])->all();
+        return  $this->repository->with(['owner','client'])->skipPresenter()->all();
     }
 
 
@@ -81,7 +81,7 @@ class ProjectController extends Controller
 
     public function store_member(Request $request)
     {
-        if (($this->service->checkProjectOwner(($id))) == false)
+        if (($this->service->checkProjectOwner(($request['project_id']))) == false)
             return ['error' => 'Access Forbidden'];
 
         return $this->service->addMember($request->all());
@@ -100,7 +100,7 @@ class ProjectController extends Controller
         if (($this->service->checkProjectPermissions(($id))) == false)
             return ['error' => 'Access Forbidden'];
 
-        return $this->repository->find($id)->members;
+        return $this->repository->skipPresenter()->find($id)->members;
     }
 
 }

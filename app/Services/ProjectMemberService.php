@@ -41,7 +41,7 @@ class ProjectMemberService
         try {
             $this->validator->with($data)->passesOrFail();
             try {
-                $this->repository->update($data, $id);
+                $this->repository->skipPresenter()->update($data, $id);
             } catch (ModelNotFoundException $e) {
 
                 return [
@@ -61,7 +61,7 @@ class ProjectMemberService
     public function show($id)
     {
         try {
-            return $this->repository->find($id);
+            return $this->repository->skipPresenter()->find($id);
         }
         catch(ModelNotFoundException $e)
         {
@@ -72,7 +72,7 @@ class ProjectMemberService
     public function destroy($id)
     {
         try {
-            $this->repository->delete($id);
+            $this->repository->skipPresenter()->delete($id);
             return ['error' => false, 'message' => 'success'];
         }
         catch(ModelNotFoundException $e)

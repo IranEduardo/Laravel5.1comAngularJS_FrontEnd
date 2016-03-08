@@ -47,7 +47,7 @@ class ProjectService
    {
         try {
             $this->validator->with($data)->passesOrFail();
-            return $this->repository->create($data);
+            return $this->repository->skipPresenter()->create($data);
         } catch(ValidatorException $e) {
 
             return [
@@ -62,7 +62,7 @@ class ProjectService
         try {
             $this->validator->with($data)->passesOrFail();
             try {
-                $this->repository->update($data, $id);
+                $this->repository->skipPresenter()->update($data, $id);
             } catch (ModelNotFoundException $e) {
 
                 return [
@@ -82,7 +82,7 @@ class ProjectService
     public function show($id)
     {
         try {
-            return $this->repository->with(['owner', 'client'])->find($id);
+            return $this->repository->with(['owner', 'client'])->skipPresenter()->find($id);
         }
         catch(ModelNotFoundException $e)
         {
@@ -93,7 +93,7 @@ class ProjectService
     public function destroy($id)
     {
         try {
-            $this->repository->delete($id);
+            $this->repository->skipPresenter()->delete($id);
             return ['error' => false, 'message' => 'success'];
         }
         catch(ModelNotFoundException $e)
@@ -107,7 +107,7 @@ class ProjectService
         try {
             $this->validatormember->with($data)->passesOrFail();
 
-            $this->repository->find($data['project_id'])->members()->attach($data['user_id']);
+            $this->repository->skipPresenter()->find($data['project_id'])->members()->attach($data['user_id']);
 
 
         } catch(ValidatorException $e) {
@@ -124,7 +124,7 @@ class ProjectService
     {
         try {
 
-            $this->repository->find($id)->members()->detach($idUser);
+            $this->repository->skipPresenter()->find($id)->members()->detach($idUser);
 
         } catch (\Exception $e) {
 

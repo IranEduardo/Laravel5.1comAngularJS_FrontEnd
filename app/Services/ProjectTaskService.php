@@ -61,7 +61,7 @@ class ProjectTaskService
     public function show($id, $idTask)
     {
         try {
-            return $this->repository->findWhere(['project_id' => $id, 'id' => $idTask]);
+            return $this->repository->skipPresenter()->findWhere(['project_id' => $id, 'id' => $idTask]);
         }
         catch(ModelNotFoundException $e)
         {
@@ -72,7 +72,7 @@ class ProjectTaskService
     public function destroy($idTask)
     {
         try {
-            $this->repository->delete($idTask);
+            $this->repository->skipPresenter()->delete($idTask);
             return ['error' => false, 'message' => 'success'];
         }
         catch(ModelNotFoundException $e)
@@ -84,7 +84,7 @@ class ProjectTaskService
     public function index($id)
     {
         try {
-            return $this->repository->findWhere(['project_id' => $id]);
+            return $this->repository->skipPresenter()->findWhere(['project_id' => $id]);
         }
         catch(ModelNotFoundException $e)
         {
