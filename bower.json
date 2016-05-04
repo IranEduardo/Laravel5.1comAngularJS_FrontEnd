@@ -1,0 +1,28 @@
+{
+  "name": "Laravel5.1comAngularJS_FrontEnd",
+  "description": "FrontEnd de Gerenciador de Projetos",
+  "main": "",
+  "authors": [
+    "Iran Eduardo <iranedu@hotmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/IranEduardo/Laravel5.1comAngularJS_FrontEnd",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "resources/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "1.5.5",
+    "angular-route": "1.5.5",
+    "angular-resource": "1.5.5",
+    "angular-animate": "1.5.5",
+    "angular-messages": "1.5.5",
+    "angular-bootstrap": "1.3.2",
+    "angular-strap": "2.3.8",
+    "bootstrap": "3.3.6"
+  }
+}

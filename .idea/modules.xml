@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Laravel5.1comAngularJS_BackEnd.iml" filepath="$PROJECT_DIR$/.idea/Laravel5.1comAngularJS_BackEnd.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Laravel5.1comAngularJS_FrontEnd.iml" filepath="$PROJECT_DIR$/.idea/Laravel5.1comAngularJS_FrontEnd.iml" />
     </modules>
   </component>
 </project>

@@ -3,3 +3,4 @@
 Homestead.yaml
 Homestead.json
 .env
+resources/bower_components
