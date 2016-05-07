@@ -4,7 +4,10 @@
     "gulp": "^3.9.1"
   },
   "dependencies": {
-    "laravel-elixir": "^3.0.0",
-    "bootstrap-sass": "^3.0.0"
+    "bootstrap-sass": "^3.0.0",
+    "del": "^2.2.0",
+    "gulp": "^3.9.1",
+    "gulp-livereload": "^3.8.1",
+    "laravel-elixir": "^5.0.0"
   }
 }
