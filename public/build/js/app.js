@@ -1,9 +1,27 @@
 var app = angular.module('app',['app.controllers', 'ngRoute', 'angular-oauth2']);
 
-angular.module('app.controllers',['angular-oauth2', 'ngMessages']);
+angular.module('app.controllers',['angular-oauth2', 'ngMessages', 'app.services']);
 
-app.config(['OAuthProvider','$routeProvider',
-    function(OAuthProvider, $routeProvider) {
+angular.module('app.services',['ngResource']);
+
+
+app.provider('appConfig', function(){
+
+    var config =  {
+        baseUrl: 'http://localhost:8000'
+    };
+
+    return {
+            config: config,
+            $get: function () {
+                return config;
+            }
+    };
+
+});
+
+app.config(['OAuthProvider','OAuthTokenProvider','$routeProvider','appConfigProvider',
+    function(OAuthProvider, OAuthTokenProvider, $routeProvider, appConfigProvider) {
         $routeProvider
             .when('/login', {
                    templateUrl : 'build/views/login.html',
@@ -12,12 +30,37 @@ app.config(['OAuthProvider','$routeProvider',
             .when('/home', {
                     templateUrl : 'build/views/home.html',
                     controller  : 'HomeController'
+            })
+            .when('/clients', {
+                    templateUrl: 'build/views/client/list.html',
+                    controller: 'ClientListController'
+            })
+            .when('/clients/new', {
+                templateUrl: 'build/views/client/new.html',
+                controller: 'ClientNewController'
+            })
+            .when('/clients/:id/edit', {
+                templateUrl: 'build/views/client/edit.html',
+                controller: 'ClientEditController'
+            })
+            .when('/clients/:id/remove', {
+                templateUrl: 'build/views/client/remove.html',
+                controller: 'ClientRemoveController'
             });
+
+
         OAuthProvider.configure({
-            baseUrl: 'http://localhost:8000',
+            baseUrl: appConfigProvider.config.baseUrl,
             clientId: 'appid1',
             clientSecret: 'secret',
             grantPath: 'oauth/access_token'
+        });
+
+        OAuthTokenProvider.configure({
+           name: 'token',
+           options: {
+               secure: false
+           }
         });
 
      }
