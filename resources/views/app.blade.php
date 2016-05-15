@@ -82,8 +82,15 @@
 		<script src="{{	asset("build/js/controllers/client/clientNew.js") }} "></script>
 		<script src="{{	asset("build/js/controllers/client/clientEdit.js") }} "></script>
 		<script src="{{	asset("build/js/controllers/client/clientRemove.js") }} "></script>
+		<script src="{{	asset("build/js/controllers/client/clientShow.js") }} "></script>
+		<script src="{{	asset("build/js/controllers/project_note/projectNoteList.js") }} "></script>
+		<script src="{{	asset("build/js/controllers/project_note/projectNoteEdit.js") }} "></script>
+		<script src="{{	asset("build/js/controllers/project_note/projectNoteNew.js") }} "></script>
+		<script src="{{	asset("build/js/controllers/project_note/projectNoteRemove.js") }} "></script>
+		<script src="{{	asset("build/js/controllers/project_note/projectNoteShow.js") }} "></script>
 		<!-- Services !-->
 		<script src="{{	asset("build/js/services/client.js") }} "></script>
+		<script src="{{	asset("build/js/services/projectNote.js") }} "></script>
 
 		<!-- OAuth2 !-->
 		<script src="{{	asset("build/js/vendor/angular-cookies.min.js") }} "></script>

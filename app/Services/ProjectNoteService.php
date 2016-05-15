@@ -60,26 +60,23 @@ class ProjectNoteService
    }
     public function show($id, $idNote)
     {
-        try {
-            return $this->repository->skipPresenter()->findWhere(['project_id' => $id, 'id' => $idNote]);
-        }
-        catch(ModelNotFoundException $e)
-        {
-            return response()->json(['error' => true, 'message' => 'Nota Nao Existe']);
-        }
+       $projectNote = $this->repository->skipPresenter()->findWhere(['project_id' => $id, 'id' => $idNote]);
+       if (count($projectNote) > 0) {
+             return $projectNote[0];
+       }
+       else
+           return response()->json(['error' => true, 'message' => 'Nota Nao Existe']);
 
     }
 
     public function index($id)
     {
-        try {
-            return $this->repository->skipPresenter()->findWhere(['project_id' => $id]);
-        }
-        catch(ModelNotFoundException $e)
-        {
-            return response()->json(['error' => true, 'message' => 'Nota(s) Nao Existe(m)']);
-        }
-
+        $projectNotes =  $this->repository->skipPresenter()->findWhere(['project_id' => $id]);
+         if (count($projectNotes) > 0) {
+             return $projectNotes;
+         }
+         else
+             return response()->json(['error' => true, 'message' => 'Nota(s) Nao Existe(m)']);
     }
 
 
