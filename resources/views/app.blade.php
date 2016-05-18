@@ -7,8 +7,10 @@
 	<title>Laravel</title>
 
 	@if(Config::get('app.debug'))
-		<link href="{{ asset("build/css/vendor/bootstrap.min.css") }}" rel="stylesheet" />
-		<link href="{{ asset("build/css/vendor/bootstrap-theme.min.css") }}" rel="stylesheet" />
+		<link href="{{ asset("build/css/app.css") }}" rel="stylesheet" />
+		<link href="{{ asset("build/css/components.css") }}" rel="stylesheet" />
+		<link href="{{ asset("build/css/flaticon.css") }}" rel="stylesheet" />
+		<link href="{{ asset("build/css/font-awesome.css") }}" rel="stylesheet" />
 	@else
 		<link rel="stylesheet" href="{{ elixir("css/all.css") }}" />
 	@endif
@@ -78,19 +80,30 @@
 		<!-- Controllers !-->
 		<script src="{{	asset("build/js/controllers/home.js") }} "></script>
 		<script src="{{	asset("build/js/controllers/login.js") }} "></script>
+
 		<script src="{{	asset("build/js/controllers/client/clientList.js") }} "></script>
 		<script src="{{	asset("build/js/controllers/client/clientNew.js") }} "></script>
 		<script src="{{	asset("build/js/controllers/client/clientEdit.js") }} "></script>
 		<script src="{{	asset("build/js/controllers/client/clientRemove.js") }} "></script>
 		<script src="{{	asset("build/js/controllers/client/clientShow.js") }} "></script>
+
+		<script src="{{	asset("build/js/controllers/project/projectList.js") }} "></script>
+		<script src="{{	asset("build/js/controllers/project/projectNew.js") }} "></script>
+		<script src="{{	asset("build/js/controllers/project/projectEdit.js") }} "></script>
+		<script src="{{	asset("build/js/controllers/project/projectRemove.js") }} "></script>
+		<script src="{{	asset("build/js/controllers/project/projectShow.js") }} "></script>
+
 		<script src="{{	asset("build/js/controllers/project_note/projectNoteList.js") }} "></script>
 		<script src="{{	asset("build/js/controllers/project_note/projectNoteEdit.js") }} "></script>
 		<script src="{{	asset("build/js/controllers/project_note/projectNoteNew.js") }} "></script>
 		<script src="{{	asset("build/js/controllers/project_note/projectNoteRemove.js") }} "></script>
 		<script src="{{	asset("build/js/controllers/project_note/projectNoteShow.js") }} "></script>
+
 		<!-- Services !-->
 		<script src="{{	asset("build/js/services/client.js") }} "></script>
 		<script src="{{	asset("build/js/services/projectNote.js") }} "></script>
+		<script src="{{	asset("build/js/services/user.js") }} "></script>
+		<script src="{{	asset("build/js/services/project.js") }} "></script>
 
 		<!-- OAuth2 !-->
 		<script src="{{	asset("build/js/vendor/angular-cookies.min.js") }} "></script>

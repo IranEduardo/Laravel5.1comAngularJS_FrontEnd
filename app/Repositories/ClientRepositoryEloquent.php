@@ -8,6 +8,7 @@ use Prettus\Repository\Eloquent\BaseRepository;
 use CodeProject\Presenters\ClientPresenter;
 
 
+
 class ClientRepositoryEloquent extends BaseRepository implements ClientRepository
 {
 

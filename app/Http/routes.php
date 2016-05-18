@@ -43,7 +43,13 @@ Route::group(['middleware' => 'oauth' ], function(){
     Route::delete('project/{id}/projectfile/{idProjectFile}', ['as' => 'projectfile.destroy', 'uses' => 'ProjectFileController@destroy']);
     Route::post('project/projectfile', ['as' => 'projectfile.store', 'uses' => 'ProjectFileController@store']);
 
+    Route::get('user/authenticated', ['as' => 'user.authenticated', 'uses' => 'UserController@authenticated']);
 });
+
+
+
+
+
 
 
 

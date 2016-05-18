@@ -51,6 +51,30 @@ app.config(['OAuthProvider','OAuthTokenProvider','$routeProvider','appConfigProv
                 templateUrl: 'build/views/client/show.html',
                 controller: 'ClientShowController'
             })
+
+
+            .when('/projects', {
+                templateUrl: 'build/views/project/list.html',
+                controller: 'ProjectListController'
+            })
+            .when('/projects/new', {
+                templateUrl: 'build/views/project/new.html',
+                controller: 'ProjectNewController'
+            })
+            .when('/projects/:id/edit', {
+                templateUrl: 'build/views/project/edit.html',
+                controller: 'ProjectEditController'
+            })
+            .when('/projects/:id/remove', {
+                templateUrl: 'build/views/project/remove.html',
+                controller: 'ProjectRemoveController'
+            })
+            .when('/projects/:id', {
+                templateUrl: 'build/views/project/show.html',
+                controller: 'ProjectShowController'
+            })
+
+
             .when('/project/:id/notes', {
                 templateUrl: 'build/views/project_note/list.html',
                 controller: 'ProjectNoteListController'

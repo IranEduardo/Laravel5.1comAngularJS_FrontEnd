@@ -1,0 +1,28 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">Ver um project</div>
+                <div class="panel-body">
+                    <ul>
+                        <li><strong>Project User: </strong>{{project.owner_id}}</li>
+                        <li><strong>Project Client: </strong>{{project.client_id}}</li>
+                        <li><strong>Name: </strong>{{project.name}}</li>
+                        <li><strong>Description: </strong>{{project.description}}</li>
+                        <li><strong>Progress: </strong>{{project.progress}}</li>
+                        <li><strong>Status </strong>{{project.status}}</li>
+                        <li><strong>Due Date </strong>{{project.due_date | date:'dd/MM/yyyy'}}</li>
+                    </ul>
+                    <div class="form-group">
+                        <div class="col-md-6 col-md-offset-4">
+                            <button type="button" class="btn btn-primary" ng-click="show()">
+                                Voltar para a listagem de Projects
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
