@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Contracts\Filesystem\Factory as Storage;
 use Illuminate\Filesystem\Filesystem;
 
+use \Illuminate\Database\QueryException;
 
 
 class ProjectService
@@ -96,9 +97,14 @@ class ProjectService
             $this->repository->skipPresenter()->delete($id);
             return ['error' => false, 'message' => 'success'];
         }
-        catch(ModelNotFoundException $e)
+        catch(\Exception $e)
         {
-            return response()->json(['error' => true, 'message' => 'Project Nao Existe']);
+            if ($e instanceof ModelNotFoundException)
+                return response()->json(['error' => true, 'message' => 'Project Nao Existe']);
+            elseif ($e instanceof QueryException)
+                return response()->json(['error' => true, 'message' => 'Existe(m) Member(s) Atrelados a Esse Project']);
+            else
+                return response()->json(['error' => true, 'message' => $e->getMessage()]);
         }
     }
 
