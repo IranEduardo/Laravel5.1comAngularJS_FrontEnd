@@ -30,7 +30,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return  $this->repository->with(['owner','client'])->skipPresenter()->all();
+        return  $this->repository->all();
     }
 
 

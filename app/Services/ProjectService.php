@@ -83,7 +83,7 @@ class ProjectService
     public function show($id)
     {
         try {
-            return $this->repository->with(['owner', 'client'])->skipPresenter()->find($id);
+            return $this->repository->find($id);
         }
         catch(ModelNotFoundException $e)
         {
