@@ -1,20 +1,25 @@
 angular.module('app.controllers')
-    .controller('ProjectNewController',['$scope','$location','Project','$cookies', 'Client',
-        function($scope,$location, Project, $cookies, Client){
+    .controller('ProjectNewController',['$scope','appConfig','$location','Project','$cookies', 'Client',
+        function($scope,appConfig,$location, Project, $cookies, Client){
             $scope.project = new Project();
-            $scope.project.owner_id = $cookies.getObject('user').id;
 
-            $scope.selected_client = null;
+            $scope.clientSelected = null;
 
-            $scope.allClients = Client.query({},function(){
-                $scope.selected_client = $scope.allClients[0];
-            });
+            $scope.due_date = {
+                status:{
+                    opened: false
+                }
+            };
 
+            $scope.open = function($event){
+                $scope.due_date.status.opened = true;
+            }
+
+            $scope.status = appConfig.project.status;
 
             $scope.save = function(){
                 if ($scope.form.$valid) {
-
-                    $scope.project.client_id = $scope.selected_client.id;
+                    $scope.project.owner_id = $cookies.getObject('user').id;
 
                     $scope.project.$save().then(function () {
                          $location.path('/projects');
@@ -22,5 +27,22 @@ angular.module('app.controllers')
                 }
             }
 
+            $scope.formatName = function (model) {
+                if (model) {
+                    return model.name;
+                }
+                return '';
+            };
+
+            $scope.getClients = function (name) {
+                return Client.query({
+                    search: name,
+                    searchFields: 'name:like'
+                }).$promise;
+            };
+
+            $scope.selectClient = function(item){
+                $scope.project.client_id = item.id;
+            };
         }
 ]);

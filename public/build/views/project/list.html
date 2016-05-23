@@ -19,7 +19,7 @@
                         <tbody>
                              <tr ng-repeat="p in projects">
                                  <td>{{p.owner_id}}</td>
-                                 <td>{{p.client_id}}</td>
+                                 <td>{{p.client.data[0].name}}</td>
                                  <td>{{p.name}}</td>
                                  <td>{{p.description | limitTo:30}}...</td>
                                  <td>{{p.progress}}</td>

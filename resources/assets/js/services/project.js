@@ -18,8 +18,8 @@ angular.module('app.services')
             },
             get: {
                 method: 'GET',
-                transformeResponse: function(data, headers) {
-                    var o = appConfig.utils.transformeResponse(data, headers);
+                transformResponse: function(data, headers) {
+                    var o = appConfig.utils.transformResponse(data, headers);
                     if (angular.isObject(o) && o.hasOwnProperty('due_date')){
                         var arrayDate = o.due_date.split('-'),
                             month = parseInt(arrayDate[1])-1;

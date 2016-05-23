@@ -1,6 +1,7 @@
 var app = angular.module('app',['app.controllers', 'ngRoute', 'angular-oauth2']);
 
-angular.module('app.controllers',['angular-oauth2', 'ngMessages', 'app.services']);
+angular.module('app.controllers',['angular-oauth2', 'ngMessages', 'app.services',
+               'ui.bootstrap.typeahead', 'ui.bootstrap.datepickerPopup' ,'ui.bootstrap.tpls']);
 
 angular.module('app.services',['ngResource']);
 
@@ -86,8 +87,6 @@ app.config(['OAuthProvider','OAuthTokenProvider','$routeProvider', '$httpProvide
                 templateUrl: 'build/views/client/show.html',
                 controller: 'ClientShowController'
             })
-
-
             .when('/projects', {
                 templateUrl: 'build/views/project/list.html',
                 controller: 'ProjectListController'
@@ -108,8 +107,6 @@ app.config(['OAuthProvider','OAuthTokenProvider','$routeProvider', '$httpProvide
                 templateUrl: 'build/views/project/show.html',
                 controller: 'ProjectShowController'
             })
-
-
             .when('/project/:id/notes', {
                 templateUrl: 'build/views/project_note/list.html',
                 controller: 'ProjectNoteListController'
