@@ -8,13 +8,9 @@ use CodeProject\Repositories\ProjectMemberRepository;
 use CodeProject\Repositories\ProjectRepository;
 use CodeProject\Validators\ProjectMemberValidator;
 use CodeProject\Validators\ProjectValidator;
-use CodeProject\Validators\ProjectFileValidator;
 use Prettus\Validator\Exceptions\ValidatorException;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-
-use Illuminate\Contracts\Filesystem\Factory as Storage;
-use Illuminate\Filesystem\Filesystem;
 
 use \Illuminate\Database\QueryException;
 
@@ -26,22 +22,18 @@ class ProjectService
    protected $validator;
 
    protected $validatormember;
-   protected $validator_projectfile;
 
    protected $filesystem;
    protected $storage;
 
 
-   public function __construct(ProjectRepository $repository, ProjectValidator $validator, ProjectMemberValidator $validatormember, ProjectFileValidator $validator_projectfile, Filesystem $filesystem, Storage $storage)
+   public function __construct(ProjectRepository $repository, ProjectValidator $validator, ProjectMemberValidator $validatormember)
    {
         $this->repository = $repository;
         $this->validator = $validator;
 
         $this->validatormember  = $validatormember;
-        $this->validator_projectfile = $validator_projectfile;
 
-        $this->filesystem = $filesystem;
-        $this->storage = $storage;
    }
 
    public function create(array $data)
@@ -182,72 +174,4 @@ class ProjectService
            return true;
        return false;
    }
-
-    public function createFile(Array $data)
-    {
-        try {
-              $this->validator_projectfile->with($data)->passesOrFail();
-
-              $project = $this->repository->skipPresenter()->find($data['project_id']);
-              $data['extension'] = $data['file']->getClientOriginalExtension();
-              $extension = $data['extension'];
-              $projectFile =  $project->files()->create($data);
-
-        } catch(ValidatorException $e) {
-
-            return [
-                'error' => true,
-                'message' => $e->getMessageBag()
-            ];
-        }
-
-       $this->storage->put($projectFile->id.".".$extension,$this->filesystem->get($data['file']));
-
-       return ['error' => 'false', 'message' => 'success'];
-    }
-
-    public function destroyFile($id, $idProjectFile)
-    {
-        try {
-              $project = $this->repository->skipPresenter()->find($id);
-
-        } catch(ModelNotFoundException $e) {
-
-            return response()->json([
-                'error' => true,
-                'message' => $e->getMessageBag()
-            ]);
-        }
-
-        $ProjectFiles =  $project->files;
-
-        $extension = '';
-        $existe_arquivo = false;
-
-        foreach ($ProjectFiles as $projectFile)
-        {
-           if ($projectFile->id == $idProjectFile)
-           {
-               $extension =  $projectFile->extension;
-               $existe_arquivo = true;
-               $projectFile->delete();
-
-           }
-        }
-
-        if (!$existe_arquivo) {
-
-            return response()->json([
-                'error' => true,
-                'message' => 'Arquivo nao encontrado'
-            ]);
-        }
-
-
-        if ($extension)
-           $this->storage->delete($idProjectFile.".".$extension);
-
-        return response()->json(['error' => false, 'message' => 'success']);
-
-    }
 }

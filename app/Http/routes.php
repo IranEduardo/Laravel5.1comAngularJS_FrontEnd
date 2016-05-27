@@ -40,8 +40,11 @@ Route::group(['middleware' => 'oauth' ], function(){
     Route::delete('project/task/{idTask}', ['as' => 'projecttask.destroy', 'uses' => 'ProjectTaskController@destroy']);
 
 
-    Route::delete('project/{id}/projectfile/{idProjectFile}', ['as' => 'projectfile.destroy', 'uses' => 'ProjectFileController@destroy']);
-    Route::post('project/projectfile', ['as' => 'projectfile.store', 'uses' => 'ProjectFileController@store']);
+    Route::delete('project/{id}/file/{idFile}', ['as' => 'projectfile.destroy', 'uses' => 'ProjectFileController@destroy']);
+    Route::post('project/file', ['as' => 'projectfile.store', 'uses' => 'ProjectFileController@store']);
+    Route::put('project/{id}/file/{idFile}', ['as' => 'projectfile.update', 'uses' => 'ProjectFileController@update']);
+    Route::get('project/{id}/file/{idFile}', ['as' => 'projectfile.show', 'uses' => 'ProjectFileController@show']);
+    Route::get('project/{id}/file', ['as' => 'projectfile.index', 'uses' => 'ProjectFileController@index']);
 
     Route::get('user/authenticated', ['as' => 'user.authenticated', 'uses' => 'UserController@authenticated']);
 });
