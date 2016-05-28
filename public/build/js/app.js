@@ -1,7 +1,7 @@
 var app = angular.module('app',['app.controllers', 'ngRoute', 'angular-oauth2']);
 
 angular.module('app.controllers',['angular-oauth2', 'ngMessages', 'app.services',
-               'ui.bootstrap.typeahead', 'ui.bootstrap.datepickerPopup' ,'ui.bootstrap.tpls']);
+               'ui.bootstrap.typeahead', 'ui.bootstrap.datepickerPopup' ,'ui.bootstrap.tpls', 'ngFileUpload']);
 
 angular.module('app.services',['ngResource']);
 
@@ -16,6 +16,9 @@ app.provider('appConfig', ['$httpParamSerializerProvider',function($httpParamSer
                 {value: 2, label: 'Iniciado'},
                 {value: 3, label: 'Concluido'}
             ]
+        },
+        urls: {
+            projectFile: '/project/{{id}}/file/{{idFile}}'
         },
         utils: {
             transformRequest: function (data) {
@@ -126,6 +129,23 @@ app.config(['OAuthProvider','OAuthTokenProvider','$routeProvider', '$httpProvide
             .when('/project/:id/notes/:idNote', {
                 templateUrl: 'build/views/project_note/show.html',
                 controller: 'ProjectNoteShowController'
+            })
+
+            .when('/project/:id/files', {
+                templateUrl: 'build/views/project_file/list.html',
+                controller: 'ProjectFileListController'
+            })
+            .when('/project/:id/files/:idFile/edit', {
+                templateUrl: 'build/views/project_file/edit.html',
+                controller: 'ProjectFileEditController'
+            })
+            .when('/project/:id/files/new', {
+                templateUrl: 'build/views/project_file/new.html',
+                controller: 'ProjectFileNewController'
+            })
+            .when('/project/:id/files/:idFile/remove', {
+                templateUrl: 'build/views/project_file/remove.html',
+                controller: 'ProjectFileRemoveController'
             });
 
 

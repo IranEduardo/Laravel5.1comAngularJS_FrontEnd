@@ -76,6 +76,7 @@
 		<script src="{{ asset("build/js/vendor/angular-messages.min.js") }}"></script>
 		<script src="{{ asset("build/js/vendor/ui-bootstrap-tpls.min.js") }}"></script>
 		<script src="{{ asset("build/js/vendor/navbar.min.js") }}"></script>
+		<script src="{{ asset("build/js/vendor/ng-file-upload.min.js") }}"></script>
 		<script src="{{	asset("build/js/app.js") }} "></script>
 		<!-- Controllers !-->
 		<script src="{{	asset("build/js/controllers/home.js") }} "></script>
@@ -99,11 +100,17 @@
 		<script src="{{	asset("build/js/controllers/project_note/projectNoteRemove.js") }} "></script>
 		<script src="{{	asset("build/js/controllers/project_note/projectNoteShow.js") }} "></script>
 
+		<script src="{{	asset("build/js/controllers/project_file/projectFileList.js") }} "></script>
+		<script src="{{	asset("build/js/controllers/project_file/projectFileEdit.js") }} "></script>
+		<script src="{{	asset("build/js/controllers/project_file/projectFileNew.js") }} "></script>
+		<script src="{{	asset("build/js/controllers/project_file/projectFileRemove.js") }} "></script>
+
 		<!-- Services !-->
 		<script src="{{	asset("build/js/services/client.js") }} "></script>
 		<script src="{{	asset("build/js/services/projectNote.js") }} "></script>
 		<script src="{{	asset("build/js/services/user.js") }} "></script>
 		<script src="{{	asset("build/js/services/project.js") }} "></script>
+		<script src="{{	asset("build/js/services/url.js") }} "></script>
 
 		<!-- OAuth2 !-->
 		<script src="{{	asset("build/js/vendor/angular-cookies.min.js") }} "></script>
