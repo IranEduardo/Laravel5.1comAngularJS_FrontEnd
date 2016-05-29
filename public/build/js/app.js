@@ -1,10 +1,10 @@
 var app = angular.module('app',['app.controllers', 'ngRoute', 'angular-oauth2']);
 
-angular.module('app.controllers',['angular-oauth2', 'ngMessages', 'app.services',
+angular.module('app.controllers',['angular-oauth2', 'ngMessages', 'app.services', 'app.directives',
                'ui.bootstrap.typeahead', 'ui.bootstrap.datepickerPopup' ,'ui.bootstrap.tpls', 'ngFileUpload']);
 
 angular.module('app.services',['ngResource']);
-
+angular.module('app.directives',[]);
 
 app.provider('appConfig', ['$httpParamSerializerProvider',function($httpParamSerializerProvider){
 

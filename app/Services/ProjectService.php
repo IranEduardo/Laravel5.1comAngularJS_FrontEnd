@@ -40,7 +40,9 @@ class ProjectService
    {
         try {
             $this->validator->with($data)->passesOrFail();
-            return $this->repository->skipPresenter()->create($data);
+            $project =  $this->repository->skipPresenter()->create($data);
+            $project->progress = (int)0;
+            return $project;
         } catch(ValidatorException $e) {
 
             return [

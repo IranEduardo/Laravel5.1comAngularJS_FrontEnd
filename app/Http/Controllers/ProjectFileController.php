@@ -7,6 +7,7 @@ use CodeProject\Services\ProjectService;
 use CodeProject\Repositories\ProjectFileRepository;
 use CodeProject\Services\ProjectFileService;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use CodeProject\Http\Requests;
 use CodeProject\Http\Controllers\Controller;
@@ -42,9 +43,8 @@ class ProjectFileController extends Controller
             return ['error' => 'Access Forbidden'];
 
 
-        return $this->repository->skipPresenter()->find($idFile);
+        return $this->repository->find($idFile);
     }
-
 
     public function store(Request $request)
     {
@@ -62,12 +62,27 @@ class ProjectFileController extends Controller
        return  $this->service->create($data);
     }
 
-    public function showFile($id, $idFile) {
+    public function showFile($idFile) {
 
-        if ($this->project_service->checkProjectPermissions($id) == false) {
+        try {
+            $projectFile = $this->repository->skipPresenter()->find($idFile);
+        }
+        catch (ModelNotFoundException $e) {
+            return ['error' => 'true', 'message' => 'Arquivo de Projeto não encontrado'];
+        };
+
+        if ($this->project_service->checkProjectPermissions($projectFile->project_id) == false) {
             return ['error' => 'Access Forbidden'];
         }
-        return response()->download($this->service->getFilePath($idFile));
+
+        $filePath = $this->service->getFilePath($idFile);
+        $fileContent = file_get_contents($filePath);
+        $file64 = base64_encode($fileContent);
+        return [
+            'file' => $file64,
+            'size' => filesize($filePath),
+            'name' => $this->service->getFileName($idFile)
+        ];
     }
 
     public function update($id, $idFile, Request $request)

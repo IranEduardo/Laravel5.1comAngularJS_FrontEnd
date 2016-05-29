@@ -18,15 +18,12 @@ class ProjectFileTransformer extends TransformerAbstract
      *
      * @return array
      */
-    public function transform(ProjectFile $model)
+    public function transform(ProjectFile $projectFile)
     {
-        return [
-            'id'         => (int) $model->id,
-
-            /* place your other model properties here */
-
-            'created_at' => $model->created_at,
-            'updated_at' => $model->updated_at
+        return ['id' => $projectFile->id,
+                'description' => $projectFile->description,
+                'name' => $projectFile->name,
+                'project_id' => $projectFile->project_id
         ];
     }
 }

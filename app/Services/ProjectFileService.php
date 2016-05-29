@@ -7,6 +7,7 @@ namespace CodeProject\Services;
 use CodeProject\Repositories\ProjectFileRepository;
 use CodeProject\Repositories\ProjectRepository;
 use CodeProject\Validators\ProjectFileValidator;
+use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -41,7 +42,7 @@ class ProjectFileService
     public function create(Array $data)
     {
         try {
-              $this->validator->with($data)->passesOrFail();
+              $this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_CREATE);
               $project = $this->projectRepository->skipPresenter()->find($data['project_id']);
               $projectFile =  $project->files()->create($data);
 
@@ -53,7 +54,7 @@ class ProjectFileService
             ];
         }
 
-       $this->storage->put($projectFile->id.".".$projectFile->extension,$this->filesystem->get($data['file']));
+       $this->storage->put($projectFile->getFileName(),$this->filesystem->get($data['file']));
 
        return ['error' => 'false', 'message' => 'success'];
     }
@@ -61,8 +62,7 @@ class ProjectFileService
     public function update(array $data, $id)
     {
         try {
-            $this->validator->with($data)->passesOrFail();
-
+            $this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_UPDATE);
             $this->repository->skipPresenter()->update($data, $id);
 
         } catch(ValidatorException $e) {
@@ -104,13 +104,18 @@ class ProjectFileService
         return $this->getBaseUrl($projectFile);
     }
 
+    public function getFileName($id){
+        $projectFile = $this->repository->skipPresenter()->find($id);
+        return $projectFile->getFileName();
+    }
+
     private function getBaseUrl($projectFile){
 
-        switch ($this->storege->getDefaultDriver()){
+        switch ($this->storage->getDefaultDriver()){
 
             case 'local':
-                return $this->storege->getDriver()->getAdapter()->getPathPrefix()
-                .'/'.$projectFile->id . '.' . $projectFile->extension;
+                return $this->storage->getDriver()->getAdapter()->getPathPrefix()
+                .'/'.$projectFile->getFileName();
         }
     }
 

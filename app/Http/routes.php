@@ -45,6 +45,7 @@ Route::group(['middleware' => 'oauth' ], function(){
     Route::put('project/{id}/file/{idFile}', ['as' => 'projectfile.update', 'uses' => 'ProjectFileController@update']);
     Route::get('project/{id}/file/{idFile}', ['as' => 'projectfile.show', 'uses' => 'ProjectFileController@show']);
     Route::get('project/{id}/file', ['as' => 'projectfile.index', 'uses' => 'ProjectFileController@index']);
+    Route::get('project/file/{idFile}/download', ['as' => 'projectfile.showFile', 'uses' => 'ProjectFileController@showFile']);
 
     Route::get('user/authenticated', ['as' => 'user.authenticated', 'uses' => 'UserController@authenticated']);
 });

@@ -17,7 +17,7 @@ angular.module('app.controllers')
                             project_id: $routeParams.id
                         }
                     }).then(function (resp) {
-                        $location.path('/projects');
+                        $location.path('/project/' + $routeParams.id + '/files');
                     });
 
                 }
