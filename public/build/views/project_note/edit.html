@@ -8,16 +8,6 @@
 
                     <form class="form-horizontal" name="form" role="form" method="POST" ng-submit="save()">
 
-                        <div class="form-group" ng-class="{'has-error': !form.project_id.$valid && form.project_id.$touched}">
-                            <label class="col-md-4 control-label">Id do Projeto</label>
-                            <div class="col-md-6">
-                                <input type="text" class="form-control" name="project_id" ng-model="projectNote.project_id" required>
-                                <div ng-messages="form.project_id.$error" class="help-block" ng-show="form.project_id.$touched">
-                                    <div ng-message="required">Campo obrigatorio</div>
-                                </div>
-                            </div>
-                        </div>
-
                         <div class="form-group" ng-class="{'has-error': !form.title.$valid && form.title.$touched}">
                             <label class="col-md-4 control-label">Title</label>
                             <div class="col-md-6">

@@ -18,7 +18,7 @@ Route::group(['middleware' => 'oauth' ], function(){
     Route::delete('client/{id}', ['as' => 'client.destroy', 'uses' => 'ClientController@destroy']);
 
     Route::get('project/{id}/member', ['as' => 'project.index_members', 'uses' => 'ProjectController@index_members']);
-    Route::post('project/member', ['as' => 'project.store_member',  'uses' => 'ProjectController@store_member']);
+    Route::post('project/{id}/member', ['as' => 'project.store_member',  'uses' => 'ProjectController@store_member']);
     Route::delete('project/{id}/member/{idUser}', ['as' => 'project.destroy_member', 'uses' => 'ProjectController@destroy_member']);
 
     Route::get('project', ['as' => 'project', 'uses' => 'ProjectController@index']);
@@ -28,24 +28,24 @@ Route::group(['middleware' => 'oauth' ], function(){
     Route::delete('project/{id}', ['as' => 'project.destroy', 'uses' => 'ProjectController@destroy']);
 
     Route::get('project/{id}/note', ['as' => 'projectnote.index', 'uses' => 'ProjectNoteController@index']);
-    Route::post('project/note', ['as' => 'projectnote.store', 'uses' => 'ProjectNoteController@store']);
+    Route::post('project/{id}/note', ['as' => 'projectnote.store', 'uses' => 'ProjectNoteController@store']);
     Route::get('project/{id}/note/{idNote}', ['as' => 'projectnote.show', 'uses' => 'ProjectNoteController@show']);
-    Route::put('project/note/{idNote}', ['as' => 'projectnote.update', 'uses' => 'ProjectNoteController@update']);
-    Route::delete('project/note/{idNote}', ['as' => 'projectnote.destroy', 'uses' => 'ProjectNoteController@destroy']);
+    Route::put('project/{id}/note/{idNote}', ['as' => 'projectnote.update', 'uses' => 'ProjectNoteController@update']);
+    Route::delete('project/{id}/note/{idNote}', ['as' => 'projectnote.destroy', 'uses' => 'ProjectNoteController@destroy']);
 
     Route::get('project/{id}/task', ['as' => 'projecttask.index', 'uses' => 'ProjectTaskController@index']);
-    Route::post('project/task', ['as' => 'projecttask.store', 'uses' => 'ProjectTaskController@store']);
+    Route::post('project/{id}/task', ['as' => 'projecttask.store', 'uses' => 'ProjectTaskController@store']);
     Route::get('project/{id}/task/{idTask}', ['as' => 'projecttask.show', 'uses' => 'ProjectTaskController@show']);
-    Route::put('project/task/{idTask}', ['as' => 'projecttask.update', 'uses' => 'ProjectTaskController@update']);
-    Route::delete('project/task/{idTask}', ['as' => 'projecttask.destroy', 'uses' => 'ProjectTaskController@destroy']);
+    Route::put('project/{id}/task/{idTask}', ['as' => 'projecttask.update', 'uses' => 'ProjectTaskController@update']);
+    Route::delete('project/{id}/task/{idTask}', ['as' => 'projecttask.destroy', 'uses' => 'ProjectTaskController@destroy']);
 
 
     Route::delete('project/{id}/file/{idFile}', ['as' => 'projectfile.destroy', 'uses' => 'ProjectFileController@destroy']);
-    Route::post('project/file', ['as' => 'projectfile.store', 'uses' => 'ProjectFileController@store']);
+    Route::post('project/{id}/file', ['as' => 'projectfile.store', 'uses' => 'ProjectFileController@store']);
     Route::put('project/{id}/file/{idFile}', ['as' => 'projectfile.update', 'uses' => 'ProjectFileController@update']);
     Route::get('project/{id}/file/{idFile}', ['as' => 'projectfile.show', 'uses' => 'ProjectFileController@show']);
     Route::get('project/{id}/file', ['as' => 'projectfile.index', 'uses' => 'ProjectFileController@index']);
-    Route::get('project/file/{idFile}/download', ['as' => 'projectfile.showFile', 'uses' => 'ProjectFileController@showFile']);
+    Route::get('project/{id}/file/{idFile}/download', ['as' => 'projectfile.showFile', 'uses' => 'ProjectFileController@showFile']);
 
     Route::get('user/authenticated', ['as' => 'user.authenticated', 'uses' => 'UserController@authenticated']);
 });

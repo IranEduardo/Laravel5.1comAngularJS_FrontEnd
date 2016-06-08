@@ -3,11 +3,10 @@ angular.module('app.controllers')
         function($scope, ProjectNote, $routeParams, $location){
 
             $scope.projectNote =  new ProjectNote();
-            $scope.projectNote.project_id = $routeParams.id;
 
             $scope.save = function(){
                 if ($scope.form.$valid) {
-                    $scope.projectNote.$save(function () {
+                    $scope.projectNote.$save({id: $routeParams.id},function () {
                         $location.path('/project/' + $routeParams.id  + '/notes');
                     });
                 }

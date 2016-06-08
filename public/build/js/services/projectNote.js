@@ -3,10 +3,10 @@ angular.module('app.services')
         var baseApiUrl = appConfig.baseUrl + '/project';
         return $resource(baseApiUrl, {},
             { query:  {url: baseApiUrl + '/:id/note', params: {id: '@project_id'}, isArray: true},
-              update: {method: 'PUT', url: baseApiUrl + '/note/:idNote', params: {idNote: '@id'}},
+              update: {method: 'PUT', url: baseApiUrl + '/:id/note/:idNote', params: {id: '@project_id', idNote: '@id'}},
               get:    {url: baseApiUrl +  '/:id/note/:idNote', params: {id: '@project_id', idNote: '@id'}},
-              save:   {method: 'POST', url: baseApiUrl + '/note'},
-              delete: {method: 'DELETE', url: baseApiUrl + '/note/:idNote', params: {idNote: '@id'}}
+              save:   {method: 'POST', url: baseApiUrl + '/:id/note'}, params: {id: '@project_id'},
+              delete: {method: 'DELETE', url: baseApiUrl + '/:id/note/:idNote', params: {id: '@project_id', idNote: '@id'}}
             }
         );
     }]);
