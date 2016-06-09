@@ -79,30 +79,4 @@ class ProjectController extends Controller
         return $this->service->destroy($id);
     }
 
-    public function store_member(Request $request, $id)
-    {
-        if (($this->service->checkProjectOwner(($id))) == false)
-            return ['error' => 'Access Forbidden'];
-
-        $data = $request->all();
-        $data['project_id'] = $id;
-        return $this->service->addMember($data);
-    }
-
-    public function destroy_member($id, $idUser)
-    {
-        if (($this->service->checkProjectOwner(($id))) == false)
-            return ['error' => 'Access Forbidden'];
-
-       return $this->service->removeMember($id,$idUser);
-    }
-
-    public function index_members($id)
-    {
-        if (($this->service->checkProjectPermissions(($id))) == false)
-            return ['error' => 'Access Forbidden'];
-
-        return $this->repository->skipPresenter()->find($id)->members;
-    }
-
 }

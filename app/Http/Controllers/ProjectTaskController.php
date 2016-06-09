@@ -25,8 +25,10 @@ class ProjectTaskController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
+        $data = $request->all();
+        $data['project_id'] = $id;
         return  $this->service->create($request->all());
     }
 
@@ -49,7 +51,7 @@ class ProjectTaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $idTask)
+    public function update(Request $request, $id, $idTask)
     {
         return $this->service->update($request->all(),$idTask);
     }
@@ -60,7 +62,7 @@ class ProjectTaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($idTask)
+    public function destroy($id, $idTask)
     {
         return $this->service->destroy($idTask);
     }

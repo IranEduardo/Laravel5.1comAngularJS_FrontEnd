@@ -101,41 +101,7 @@ class ProjectService
                 return response()->json(['error' => true, 'message' => $e->getMessage()]);
         }
     }
-
-    public function addMember(array $data)
-    {
-        try {
-            $this->validatormember->with($data)->passesOrFail();
-
-            $this->repository->skipPresenter()->find($data['project_id'])->members()->attach($data['user_id']);
-
-
-        } catch(ValidatorException $e) {
-
-            return [
-                'error' => true,
-                'message' => $e->getMessageBag()
-            ];
-        }
-        return ['error' => false, 'message' => 'success'];
-    }
-
-    public function removeMember($id, $idUser)
-    {
-        try {
-
-            $this->repository->skipPresenter()->find($id)->members()->detach($idUser);
-
-        } catch (\Exception $e) {
-
-            return [
-                'error' => true,
-                'message' => $e->getMessage()
-            ];
-        }
-        return ['error' => false, 'message' => 'success'];
-    }
-
+  
    public function checkProjectMember($id)
    {
        try {

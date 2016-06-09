@@ -46,23 +46,23 @@ class ProjectFileController extends Controller
         return $this->repository->find($idFile);
     }
 
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
-        if ($this->project_service->checkProjectPermissions($request->project_id) == false)
+        if ($this->project_service->checkProjectPermissions($id) == false)
             return ['error' => 'Access Forbidden'];
 
        $projectFile = $request->file('file');
 
        $data['file'] = $projectFile;
        $data['name'] = $request->name;
-       $data['project_id'] = $request->project_id;
+       $data['project_id'] = $id;
        $data['description'] = $request->description;
        $data['extension'] = $projectFile->getClientOriginalExtension();
 
        return  $this->service->create($data);
     }
 
-    public function showFile($idFile) {
+    public function showFile($id, $idFile) {
 
         try {
             $projectFile = $this->repository->skipPresenter()->find($idFile);
@@ -71,7 +71,7 @@ class ProjectFileController extends Controller
             return ['error' => 'true', 'message' => 'Arquivo de Projeto não encontrado'];
         };
 
-        if ($this->project_service->checkProjectPermissions($projectFile->project_id) == false) {
+        if ($this->project_service->checkProjectPermissions($id) == false) {
             return ['error' => 'Access Forbidden'];
         }
 

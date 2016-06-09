@@ -1,9 +1,9 @@
 <?php
 
-
 namespace CodeProject\Services;
 
 use CodeProject\Repositories\ProjectMemberRepository;
+use CodeProject\Repositories\ProjectRepository;
 use CodeProject\Validators\ProjectMemberValidator;
 use Prettus\Validator\Exceptions\ValidatorException;
 
@@ -16,52 +16,51 @@ class ProjectMemberService
    protected $repository;
    protected $validator;
 
-   public function __construct(ProjectMemberRepository $repository, ProjectMemberValidator $validator)
+   protected $repository_project;
+
+   public function __construct(ProjectMemberRepository $repository, ProjectMemberValidator $validator, ProjectRepository $repository_project)
    {
         $this->repository = $repository;
         $this->validator = $validator;
+        $this->repository_project = $repository_project;
    }
 
    public function create(array $data)
    {
-        try {
-            $this->validator->with($data)->passesOrFail();
-            return $this->repository->create($data);
-        } catch(ValidatorException $e) {
+       try {
+           $this->validator->with($data)->passesOrFail();
 
-            return [
-                'error' => true,
-                'message' => $e->getMessageBag()
-            ];
-        }
+           $this->repository_project->skipPresenter()->find($data['project_id'])->members()->attach($data['user_id']);
+
+
+       } catch(ValidatorException $e) {
+
+           return [
+               'error' => true,
+               'message' => $e->getMessageBag()
+           ];
+       }
+       return ['error' => false, 'message' => 'success'];
    }
 
-   public function update(array $data,$id)
-   {
-        try {
-            $this->validator->with($data)->passesOrFail();
-            try {
-                $this->repository->skipPresenter()->update($data, $id);
-            } catch (ModelNotFoundException $e) {
-
-                return [
-                    'error' => true,
-                    'message' => 'Membro Nao Existe'
-                ];
-            }
-            return ['error' => false, 'message' => 'success'];
-        } catch(ValidatorException $e) {
-
-            return [
-                'error' => true,
-                'message' => $e->getMessageBag()
-            ];
-        }
-   }
-    public function show($id)
+    public function show($id, $idMember)
     {
         try {
-            return $this->repository->skipPresenter()->find($id);
+             return $this->repository->findWhere(['project_id' => $id, 'user_id' => $idMember]);
+
+        }
+        catch(\Exception $e)
+        {
+            return response()->json(['error' => true,
+                                     'message' => $e->getMessage()]);
+        }
+
+    }
+
+    public function index($id)
+    {
+        try {
+            return $this->repository_project->skipPresenter()->find($id)->members;
         }
         catch(ModelNotFoundException $e)
         {
@@ -69,16 +68,21 @@ class ProjectMemberService
         }
 
     }
-    public function destroy($id)
+
+    public function destroy($id, $idMember)
     {
         try {
-            $this->repository->skipPresenter()->delete($id);
-            return ['error' => false, 'message' => 'success'];
+
+            $this->repository_project->skipPresenter()->find($id)->members()->detach($idMember);
+
+        } catch (\Exception $e) {
+
+            return [
+                'error' => true,
+                'message' => $e->getMessage()
+            ];
         }
-        catch(ModelNotFoundException $e)
-        {
-            return response()->json(['error' => true, 'message' => 'Membro Nao Existe']);
-        }
+        return ['error' => false, 'message' => 'success'];
     }
 
 }

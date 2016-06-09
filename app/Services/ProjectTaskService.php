@@ -26,7 +26,7 @@ class ProjectTaskService
    {
         try {
             $this->validator->with($data)->passesOrFail();
-            return $this->repository->create($data);
+            return $this->repository->skipPresenter()->create($data);
         } catch(ValidatorException $e) {
 
             return [
@@ -41,7 +41,7 @@ class ProjectTaskService
         try {
             $this->validator->with($data)->passesOrFail();
             try {
-                $this->repository->update($data, $idTask);
+                $this->repository->skipPresenter()->update($data, $idTask);
             } catch (ModelNotFoundException $e) {
 
                 return [
@@ -61,7 +61,7 @@ class ProjectTaskService
     public function show($id, $idTask)
     {
         try {
-            return $this->repository->skipPresenter()->findWhere(['project_id' => $id, 'id' => $idTask]);
+            return $this->repository->findWhere(['project_id' => $id, 'id' => $idTask]);
         }
         catch(ModelNotFoundException $e)
         {
@@ -84,7 +84,7 @@ class ProjectTaskService
     public function index($id)
     {
         try {
-            return $this->repository->skipPresenter()->findWhere(['project_id' => $id]);
+            return $this->repository->findWhere(['project_id' => $id]);
         }
         catch(ModelNotFoundException $e)
         {
