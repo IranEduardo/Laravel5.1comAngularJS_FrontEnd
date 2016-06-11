@@ -130,7 +130,6 @@ app.config(['OAuthProvider','OAuthTokenProvider','$routeProvider', '$httpProvide
                 templateUrl: 'build/views/project_note/show.html',
                 controller: 'ProjectNoteShowController'
             })
-
             .when('/project/:id/files', {
                 templateUrl: 'build/views/project_file/list.html',
                 controller: 'ProjectFileListController'
@@ -146,8 +145,47 @@ app.config(['OAuthProvider','OAuthTokenProvider','$routeProvider', '$httpProvide
             .when('/project/:id/files/:idFile/remove', {
                 templateUrl: 'build/views/project_file/remove.html',
                 controller: 'ProjectFileRemoveController'
+            })
+            .when('/project/:id/tasks', {
+                templateUrl: 'build/views/project_task/list.html',
+                controller: 'ProjectTaskListController'
+            })
+            .when('/project/:id/tasks/:idTask/edit', {
+                templateUrl: 'build/views/project_task/edit.html',
+                controller: 'ProjectTaskEditController'
+            })
+            .when('/project/:id/tasks/new', {
+                templateUrl: 'build/views/project_task/new.html',
+                controller: 'ProjectTaskNewController'
+            })
+            .when('/project/:id/tasks/:idTask/remove', {
+                templateUrl: 'build/views/project_task/remove.html',
+                controller: 'ProjectTaskRemoveController'
+            })
+            .when('/project/:id/tasks/:idTask', {
+                templateUrl: 'build/views/project_task/show.html',
+                controller: 'ProjectTaskShowController'
+            })
+            .when('/project/:id/members', {
+                templateUrl: 'build/views/project_member/list.html',
+                controller: 'ProjectMemberListController'
+            })
+            .when('/project/:id/members/:idMember/edit', {
+                templateUrl: 'build/views/project_member/edit.html',
+                controller: 'ProjectMemberEditController'
+            })
+            .when('/project/:id/members/new', {
+                templateUrl: 'build/views/project_member/new.html',
+                controller: 'ProjectMemberNewController'
+            })
+            .when('/project/:id/members/:idMember/remove', {
+                templateUrl: 'build/views/project_member/remove.html',
+                controller: 'ProjectMemberRemoveController'
+            })
+            .when('/project/:id/members/:idMember', {
+                templateUrl: 'build/views/project_member/show.html',
+                controller: 'ProjectMemberShowController'
             });
-
 
         OAuthProvider.configure({
             baseUrl: appConfigProvider.config.baseUrl,

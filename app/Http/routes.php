@@ -20,6 +20,7 @@ Route::group(['middleware' => 'oauth' ], function(){
     Route::get('project/{id}/member', ['as' => 'projectmember.index', 'uses' => 'ProjectMemberController@index']);
     Route::post('project/{id}/member', ['as' => 'projectmember.store',  'uses' => 'ProjectMemberController@store']);
     Route::get('project/{id}/member/{idMember}', ['as' => 'projectmember.show', 'uses' => 'ProjectMemberController@show']);
+    Route::put('project/{id}/member/{idMember}', ['as' => 'projectmember.update', 'uses' => 'ProjectMemberController@update']);
     Route::delete('project/{id}/member/{idMember}', ['as' => 'projectmember.destroy', 'uses' => 'ProjectMemberController@destroy']);
 
     Route::get('project', ['as' => 'project', 'uses' => 'ProjectController@index']);

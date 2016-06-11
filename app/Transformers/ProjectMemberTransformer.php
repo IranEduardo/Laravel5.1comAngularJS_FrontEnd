@@ -10,7 +10,7 @@ class ProjectMemberTransformer extends TransformerAbstract
 {
     public function transform(ProjectMember $projectMember)
     {
-       return $projectMember;
+       return  $projectMember;
 
     }
 

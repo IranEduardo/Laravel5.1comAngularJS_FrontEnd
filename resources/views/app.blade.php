@@ -105,6 +105,18 @@
 		<script src="{{	asset("build/js/controllers/project_file/projectFileNew.js") }} "></script>
 		<script src="{{	asset("build/js/controllers/project_file/projectFileRemove.js") }} "></script>
 
+		<script src="{{	asset("build/js/controllers/project_task/projectTaskList.js") }} "></script>
+		<script src="{{	asset("build/js/controllers/project_task/projectTaskEdit.js") }} "></script>
+		<script src="{{	asset("build/js/controllers/project_task/projectTaskNew.js") }} "></script>
+		<script src="{{	asset("build/js/controllers/project_task/projectTaskRemove.js") }} "></script>
+		<script src="{{	asset("build/js/controllers/project_task/projectTaskShow.js") }} "></script>
+
+		<script src="{{	asset("build/js/controllers/project_member/projectMemberList.js") }} "></script>
+		<script src="{{	asset("build/js/controllers/project_member/projectMemberEdit.js") }} "></script>
+		<script src="{{	asset("build/js/controllers/project_member/projectMemberNew.js") }} "></script>
+		<script src="{{	asset("build/js/controllers/project_member/projectMemberRemove.js") }} "></script>
+		<script src="{{	asset("build/js/controllers/project_member/projectMemberShow.js") }} "></script>
+
 		<!-- Directives !-->
 		<script src="{{	asset("build/js/directives/projectFileDownload.js") }} "></script>
 
@@ -115,6 +127,8 @@
 		<script src="{{	asset("build/js/services/project.js") }} "></script>
 		<script src="{{	asset("build/js/services/url.js") }} "></script>
 		<script src="{{	asset("build/js/services/projectFile.js") }} "></script>
+		<script src="{{	asset("build/js/services/projectTask.js") }} "></script>
+		<script src="{{	asset("build/js/services/projectMember.js") }} "></script>
 
 		<!-- OAuth2 !-->
 		<script src="{{	asset("build/js/vendor/angular-cookies.min.js") }} "></script>

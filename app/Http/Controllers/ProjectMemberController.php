@@ -35,6 +35,11 @@ class ProjectMemberController extends Controller
         return $this->service->create($data);
     }
 
+    public function update(Request $request, $id, $idMember)
+    {
+        return $this->service->update($request->all(),$id, $idMember);
+    }
+
     public function destroy($id, $idMember)
     {
         if (($this->service_project->checkProjectOwner(($id))) == false)

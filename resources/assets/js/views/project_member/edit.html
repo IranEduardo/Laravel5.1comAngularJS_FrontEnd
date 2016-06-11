@@ -1,0 +1,32 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">Edição de  Member de Projeto</div>
+                <div class="panel-body">
+
+                    <form class="form-horizontal" name="form" role="form" method="POST" ng-submit="save()">
+
+                        <div class="form-group" ng-class="{'has-error': !form.user_id.$valid && form.user_id.$touched}">
+                            <label class="col-md-4 control-label">Id do Usuario</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="user_id" ng-model="projectMember.user_id" required>
+                                <div ng-messages="form.user_id.$error" class="help-block" ng-show="form.user_id.$touched">
+                                    <div ng-message="required">Campo Obrigatorio</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-4">
+                                <button type="submit" class="btn btn-primary">Save</button>
+                                <!-- <a class="btn btn-link" href="{{ url('/password/email') }}">Forgot Your Password?</a> -->
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

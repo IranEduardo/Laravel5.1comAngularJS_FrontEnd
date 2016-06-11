@@ -61,11 +61,14 @@ class ProjectTaskService
     public function show($id, $idTask)
     {
         try {
-            return $this->repository->findWhere(['project_id' => $id, 'id' => $idTask]);
+            $task = $this->repository->skipPresenter()->findWhere(['project_id' => $id, 'id' => $idTask]);
+            if (isset($task) && (count($task) > 0)) {
+                return $task[0];
+            }
         }
-        catch(ModelNotFoundException $e)
+        catch(\Exception $e)
         {
-            return response()->json(['error' => true, 'message' => 'Task Nao Existe']);
+            return response()->json(['error' => true, 'message' => $e->getMessage()]);
         }
 
     }

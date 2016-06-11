@@ -1,0 +1,36 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">Listagem de Tasks de um Projeto</div>
+                <div class="panel-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Start Date</th>
+                                <th>Due Date</th>
+                                <th>Status</th>
+                                <th>Ação</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                             <tr ng-repeat="pt in projectTasks">
+                                 <td>{{pt.name}}</td>
+                                 <td>{{pt.start_date | date:'dd/MM/yyyy' }}</td>
+                                 <td>{{pt.due_date   | date:'dd/MM/yyyy' }}</td>
+                                 <td>{{pt.status}}</td>
+                                 <td></td>
+                                 <td><a ng-href="#/project/{{pt.project_id}}/tasks/{{pt.id}}/edit">Edit</a> |
+                                     <a ng-href="#/project/{{pt.project_id}}/tasks/{{pt.id}}/remove">Excluir</a>
+                                 </td>
+                             </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

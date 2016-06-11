@@ -29,7 +29,7 @@ class ProjectTaskController extends Controller
     {
         $data = $request->all();
         $data['project_id'] = $id;
-        return  $this->service->create($request->all());
+        return  $this->service->create($data);
     }
 
     /**
