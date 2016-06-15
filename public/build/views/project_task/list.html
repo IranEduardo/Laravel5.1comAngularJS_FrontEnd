@@ -2,7 +2,26 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Listagem de Tasks de um Projeto</div>
+                <div class="panel-heading">
+                    Listagem de Tasks de um Projeto
+                     <div class="pull-right col-md-10">
+                        <form class="form-inline" name="form" method="POST" ng-submit="save()">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Name</label>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" name="name" ng-model="projectTask.name"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-6 col-md-offset-4">
+                                    <button type="submit" class="btn btn-primary">Salvar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
                 <div class="panel-body">
                     <table class="table">
                         <thead>
@@ -11,7 +30,6 @@
                                 <th>Start Date</th>
                                 <th>Due Date</th>
                                 <th>Status</th>
-                                <th>Ação</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -21,8 +39,8 @@
                                  <td>{{pt.due_date   | date:'dd/MM/yyyy' }}</td>
                                  <td>{{pt.status}}</td>
                                  <td></td>
-                                 <td><a ng-href="#/project/{{pt.project_id}}/tasks/{{pt.id}}/edit">Edit</a> |
-                                     <a ng-href="#/project/{{pt.project_id}}/tasks/{{pt.id}}/remove">Excluir</a>
+                                 <td><a ng-href="#/project/{{pt.project_id}}/task/{{pt.id}}/edit">Edit</a> |
+                                     <a ng-href="#/project/{{pt.project_id}}/task/{{pt.id}}/remove">Excluir</a>
                                  </td>
                              </tr>
                         </tbody>

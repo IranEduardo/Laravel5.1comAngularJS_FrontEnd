@@ -40,7 +40,7 @@ class ProjectTransformer extends TransformerAbstract
     {
         $members = $project->members;
 
-        return $this->collection($members, new ProjectMemberTransformer());
+        return $this->collection($members, new UserTransformer());
     }
 
     public function includeTasks(Project $project)

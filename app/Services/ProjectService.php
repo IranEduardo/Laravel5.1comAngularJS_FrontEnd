@@ -52,12 +52,12 @@ class ProjectService
         }
    }
 
-   public function update(array $data,$id)
+   public function update(array $data,$project)
    {
         try {
             $this->validator->with($data)->passesOrFail();
             try {
-                $this->repository->skipPresenter()->update($data, $id);
+                $this->repository->skipPresenter()->update($data, $project);
             } catch (ModelNotFoundException $e) {
 
                 return [
@@ -74,10 +74,10 @@ class ProjectService
             ];
         }
    }
-    public function show($id)
+    public function show($project)
     {
         try {
-            return $this->repository->find($id);
+            return $this->repository->find($project);
         }
         catch(ModelNotFoundException $e)
         {
@@ -85,10 +85,10 @@ class ProjectService
         }
 
     }
-    public function destroy($id)
+    public function destroy($project)
     {
         try {
-            $this->repository->skipPresenter()->delete($id);
+            $this->repository->skipPresenter()->delete($project);
             return ['error' => false, 'message' => 'success'];
         }
         catch(\Exception $e)

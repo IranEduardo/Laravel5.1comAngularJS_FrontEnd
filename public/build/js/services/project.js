@@ -10,7 +10,7 @@ angular.module('app.services')
       return data;
     };
 
-    return $resource(appConfig.baseUrl + '/project/:id', {id: '@id'},
+    return $resource(appConfig.baseUrl + '/project/:project', {project: '@id'},
         {
             save: {
                 method: 'POST',

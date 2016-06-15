@@ -17,6 +17,12 @@ app.provider('appConfig', ['$httpParamSerializerProvider',function($httpParamSer
                 {value: 3, label: 'Concluido'}
             ]
         },
+        projectTask: {
+            status: [
+                {value: 1, label: 'Incompleta'},
+                {value: 2, label: 'Completa'}
+            ]
+        },
         urls: {
             projectFile: '/project/{{id}}/file/{{idFile}}'
         },
@@ -74,19 +80,19 @@ app.config(['OAuthProvider','OAuthTokenProvider','$routeProvider', '$httpProvide
                     templateUrl: 'build/views/client/list.html',
                     controller: 'ClientListController'
             })
-            .when('/clients/new', {
+            .when('/client/new', {
                 templateUrl: 'build/views/client/new.html',
                 controller: 'ClientNewController'
             })
-            .when('/clients/:id/edit', {
+            .when('/client/:id/edit', {
                 templateUrl: 'build/views/client/edit.html',
                 controller: 'ClientEditController'
             })
-            .when('/clients/:id/remove', {
+            .when('/client/:id/remove', {
                 templateUrl: 'build/views/client/remove.html',
                 controller: 'ClientRemoveController'
             })
-            .when('/clients/:id', {
+            .when('/client/:id', {
                 templateUrl: 'build/views/client/show.html',
                 controller: 'ClientShowController'
             })
@@ -94,19 +100,19 @@ app.config(['OAuthProvider','OAuthTokenProvider','$routeProvider', '$httpProvide
                 templateUrl: 'build/views/project/list.html',
                 controller: 'ProjectListController'
             })
-            .when('/projects/new', {
+            .when('/project/new', {
                 templateUrl: 'build/views/project/new.html',
                 controller: 'ProjectNewController'
             })
-            .when('/projects/:id/edit', {
+            .when('/project/:id/edit', {
                 templateUrl: 'build/views/project/edit.html',
                 controller: 'ProjectEditController'
             })
-            .when('/projects/:id/remove', {
+            .when('/project/:id/remove', {
                 templateUrl: 'build/views/project/remove.html',
                 controller: 'ProjectRemoveController'
             })
-            .when('/projects/:id', {
+            .when('/project/:id', {
                 templateUrl: 'build/views/project/show.html',
                 controller: 'ProjectShowController'
             })
@@ -114,19 +120,19 @@ app.config(['OAuthProvider','OAuthTokenProvider','$routeProvider', '$httpProvide
                 templateUrl: 'build/views/project_note/list.html',
                 controller: 'ProjectNoteListController'
             })
-            .when('/project/:id/notes/:idNote/edit', {
+            .when('/project/:id/note/:idNote/edit', {
                 templateUrl: 'build/views/project_note/edit.html',
                 controller: 'ProjectNoteEditController'
             })
-            .when('/project/:id/notes/new', {
+            .when('/project/:id/note/new', {
                 templateUrl: 'build/views/project_note/new.html',
                 controller: 'ProjectNoteNewController'
             })
-            .when('/project/:id/notes/:idNote/remove', {
+            .when('/project/:id/note/:idNote/remove', {
                 templateUrl: 'build/views/project_note/remove.html',
                 controller: 'ProjectNoteRemoveController'
             })
-            .when('/project/:id/notes/:idNote', {
+            .when('/project/:id/note/:idNote', {
                 templateUrl: 'build/views/project_note/show.html',
                 controller: 'ProjectNoteShowController'
             })
@@ -134,15 +140,15 @@ app.config(['OAuthProvider','OAuthTokenProvider','$routeProvider', '$httpProvide
                 templateUrl: 'build/views/project_file/list.html',
                 controller: 'ProjectFileListController'
             })
-            .when('/project/:id/files/:idFile/edit', {
+            .when('/project/:id/file/:idFile/edit', {
                 templateUrl: 'build/views/project_file/edit.html',
                 controller: 'ProjectFileEditController'
             })
-            .when('/project/:id/files/new', {
+            .when('/project/:id/file/new', {
                 templateUrl: 'build/views/project_file/new.html',
                 controller: 'ProjectFileNewController'
             })
-            .when('/project/:id/files/:idFile/remove', {
+            .when('/project/:id/file/:idFile/remove', {
                 templateUrl: 'build/views/project_file/remove.html',
                 controller: 'ProjectFileRemoveController'
             })
@@ -150,19 +156,19 @@ app.config(['OAuthProvider','OAuthTokenProvider','$routeProvider', '$httpProvide
                 templateUrl: 'build/views/project_task/list.html',
                 controller: 'ProjectTaskListController'
             })
-            .when('/project/:id/tasks/:idTask/edit', {
+            .when('/project/:id/task/:idTask/edit', {
                 templateUrl: 'build/views/project_task/edit.html',
                 controller: 'ProjectTaskEditController'
             })
-            .when('/project/:id/tasks/new', {
+            .when('/project/:id/task/new', {
                 templateUrl: 'build/views/project_task/new.html',
                 controller: 'ProjectTaskNewController'
             })
-            .when('/project/:id/tasks/:idTask/remove', {
+            .when('/project/:id/task/:idTask/remove', {
                 templateUrl: 'build/views/project_task/remove.html',
                 controller: 'ProjectTaskRemoveController'
             })
-            .when('/project/:id/tasks/:idTask', {
+            .when('/project/:id/task/:idTask', {
                 templateUrl: 'build/views/project_task/show.html',
                 controller: 'ProjectTaskShowController'
             })
@@ -170,19 +176,19 @@ app.config(['OAuthProvider','OAuthTokenProvider','$routeProvider', '$httpProvide
                 templateUrl: 'build/views/project_member/list.html',
                 controller: 'ProjectMemberListController'
             })
-            .when('/project/:id/members/:idMember/edit', {
+            .when('/project/:id/member/:idMember/edit', {
                 templateUrl: 'build/views/project_member/edit.html',
                 controller: 'ProjectMemberEditController'
             })
-            .when('/project/:id/members/new', {
+            .when('/project/:id/member/new', {
                 templateUrl: 'build/views/project_member/new.html',
                 controller: 'ProjectMemberNewController'
             })
-            .when('/project/:id/members/:idMember/remove', {
+            .when('/project/:id/member/:idMember/remove', {
                 templateUrl: 'build/views/project_member/remove.html',
                 controller: 'ProjectMemberRemoveController'
             })
-            .when('/project/:id/members/:idMember', {
+            .when('/project/:id/member/:idMember', {
                 templateUrl: 'build/views/project_member/show.html',
                 controller: 'ProjectMemberShowController'
             });

@@ -2,7 +2,7 @@ angular.module('app.controllers')
     .controller('ProjectEditController',['$scope','appConfig','$location','$cookies', '$routeParams','Project','Client',
         function($scope,appConfig,$location,$cookies,$routeParams,Project,Client){
 
-            Project.get({id: $routeParams.id},function(data){
+            Project.get({project: $routeParams.id},function(data){
                  $scope.project = data;
                  $scope.clientSelected = data.client.data[0];
             });

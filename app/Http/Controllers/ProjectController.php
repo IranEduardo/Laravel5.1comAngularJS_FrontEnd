@@ -23,7 +23,7 @@ class ProjectController extends Controller
         $this->repository = $repository;
         $this->service    = $service;
         $this->middleware('check.project.owner', ['except' => ['store','show','index']]);
-        $this->middleware('check.project.permission', ['except' => ['store','update','destroy']]);
+        $this->middleware('check.project.permission', ['except' => ['store','update','destroy','index']]);
     }
     /**
      * Display a listing of the resource.
@@ -32,7 +32,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return  $this->repository->findWithOwnerAndMember(\Authorizer::getResourceOwnerId()) ->all();
+        return  $this->repository->findWithOwnerAndMember(\Authorizer::getResourceOwnerId())->all();
     }
 
 
