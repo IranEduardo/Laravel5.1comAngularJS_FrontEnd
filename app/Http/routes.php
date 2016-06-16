@@ -13,6 +13,8 @@ Route::group(['middleware' => 'oauth' ], function(){
 
     Route::resource('project', 'ProjectController', ['except' => ['create', 'edit']]);
 
+    Route::get('user',['as' => 'user', 'uses' => 'UserController@index']);
+
     Route::get('client', ['as' => 'client', 'uses' => 'ClientController@index']);
     Route::post('client', ['as' => 'client.store', 'uses' => 'ClientController@store']);
     Route::get('client/{id}', ['as' => 'client.show', 'uses' => 'ClientController@show']);
@@ -22,9 +24,8 @@ Route::group(['middleware' => 'oauth' ], function(){
     Route::group(['middleware' => 'check.project.permission' ], function() {
 
         Route::get('project/{id}/member', ['as' => 'projectmember.index', 'uses' => 'ProjectMemberController@index']);
-        Route::post('project/{id}/member', ['as' => 'projectmember.store', 'uses' => 'ProjectMemberController@store']);
         Route::get('project/{id}/member/{idMember}', ['as' => 'projectmember.show', 'uses' => 'ProjectMemberController@show']);
-        Route::put('project/{id}/member/{idMember}', ['as' => 'projectmember.update', 'uses' => 'ProjectMemberController@update']);
+        Route::post('project/{id}/member', ['as' => 'projectmember.store', 'uses' => 'ProjectMemberController@store']);
         Route::delete('project/{id}/member/{idMember}', ['as' => 'projectmember.destroy', 'uses' => 'ProjectMemberController@destroy']);
 
         /*Route::get('project', ['as' => 'project', 'uses' => 'ProjectController@index']);

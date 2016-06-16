@@ -27,17 +27,14 @@ class ProjectMemberController extends Controller
 
     public function store(Request $request, $id)
     {
-        if (($this->service_project->checkProjectOwner(($id))) == false)
-            return ['error' => 'Access Forbidden'];
-
         $data = $request->all();
         $data['project_id'] = $id;
         return $this->service->create($data);
     }
 
-    public function update(Request $request, $id, $idMember)
+    public function show($id, $idMember)
     {
-        return $this->service->update($request->all(),$id, $idMember);
+        return $this->service->show($id, $idMember);
     }
 
     public function destroy($id, $idMember)
@@ -50,18 +47,7 @@ class ProjectMemberController extends Controller
 
     public function index($id)
     {
-        if (($this->service_project->checkProjectPermissions(($id))) == false)
-            return ['error' => 'Access Forbidden'];
-
         return $this->service->index($id);
     }
 
-    public function show($id, $idMember) {
-
-        if (($this->service_project->checkProjectPermissions(($id))) == false)
-            return ['error' => 'Access Forbidden'];
-
-        return $this->service->show($id,$idMember);
-
-    }
 }

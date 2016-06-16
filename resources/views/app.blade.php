@@ -112,10 +112,7 @@
 		<script src="{{	asset("build/js/controllers/project_task/projectTaskShow.js") }} "></script>
 
 		<script src="{{	asset("build/js/controllers/project_member/projectMemberList.js") }} "></script>
-		<script src="{{	asset("build/js/controllers/project_member/projectMemberEdit.js") }} "></script>
-		<script src="{{	asset("build/js/controllers/project_member/projectMemberNew.js") }} "></script>
 		<script src="{{	asset("build/js/controllers/project_member/projectMemberRemove.js") }} "></script>
-		<script src="{{	asset("build/js/controllers/project_member/projectMemberShow.js") }} "></script>
 
 		<!-- Directives !-->
 		<script src="{{	asset("build/js/directives/projectFileDownload.js") }} "></script>

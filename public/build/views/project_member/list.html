@@ -2,21 +2,48 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Listagem de Members de um Projeto</div>
+                <div class="panel-heading">
+                    Listagem de Members de um Projeto
+                    <div class="pull-right col-md-10">
+                        <form class="form-inline" name="form" method="POST" ng-submit="save()">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Name</label>
+                                <div class="col-md-6">
+                                     <input class="form-control" type="text" name="user_id"
+                                           ng-model="userSelected"
+                                           uib-typeahead="o as o.name for o in getUsers($viewValue)|limitTo:10"
+                                           typeahead-input-formatter="formatName($model)"
+                                           typeahead-on-select="selectUser($item)"
+                                           typeahead-editable="false" required />
+
+                                     <div ng-messages="form.user_id.$error" class="help-block" ng-show="form.user_id.$touched">
+                                         <div ng-message="editable">Selecione um user válido</div>
+                                     </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-6 col-md-offset-4">
+                                    <button type="submit" class="btn btn-primary">Salvar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
                 <div class="panel-body">
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Id do Usuario</th>
+                                <th>Usuario</th>
                                 <th>Ação</th>
                             </tr>
                         </thead>
                         <tbody>
                              <tr ng-repeat="pm in projectMembers">
-                                 <td>{{pm.user_id}}</td>
+                                 <td>{{pm.user.data.name}}</td>
                                  <td></td>
-                                 <td><a ng-href="#/project/{{pm.project_id}}/member/{{pm.user_id}}/edit">Edit</a> |
-                                     <a ng-href="#/project/{{pm.project_id}}/member/{{pm.user_id}}/remove">Excluir</a>
+                                 <td>
+                                     <a ng-href="#/project/{{pm.project_id}}/member/{{pm.user.data.id}}/remove">Excluir</a>
                                  </td>
                              </tr>
                         </tbody>

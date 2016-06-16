@@ -41,35 +41,6 @@ class ProjectMemberService
        }
        return ['error' => false, 'message' => 'success'];
    }
-   public function update(array $data, $id, $idMember)
-   {
-       try {
-            $project = $this->repository_project->skipPresenter()->find($id);
-            $project->members()->updateExistingPivot($idMember, ['user_id' => $data['user_id']]);
-       }
-       catch(\Exception $e)
-       {
-           return response()->json(['error' => true,
-               'message' => $e->getMessage()]);
-       }
-       return ['error' => false, 'message' => 'success'];
-   }
-
-   public function show($id, $idMember)
-   {
-        try {
-             $member = $this->repository->skipPresenter()->findWhere(['project_id' => $id, 'user_id' => $idMember]);
-             if (isset($member) && (count($member) > 0)) {
-                 return $member[0];
-             }
-
-        }
-        catch(\Exception $e)
-        {
-            return response()->json(['error' => true,
-                                     'message' => $e->getMessage()]);
-        }
-   }
 
    public function index($id)
    {
@@ -82,6 +53,26 @@ class ProjectMemberService
         }
 
    }
+
+    public function show($id, $idMember)
+    {
+        try {
+            $member = $this->repository->findWhere(['project_id' => $id, 'user_id' => $idMember]);
+            if (isset($member['data'][0])) {
+                return ['data' => $member['data'][0]];
+            }
+            return [
+                'error' => true,
+                'message' => 'Membro não encontrado'
+            ];
+
+        }
+        catch(\Exception $e)
+        {
+            return response()->json(['error' => true, 'message' => $e->getMessage()]);
+        }
+
+    }
 
    public function destroy($id, $idMember)
    {
@@ -98,5 +89,4 @@ class ProjectMemberService
         }
         return ['error' => false, 'message' => 'success'];
    }
-
 }

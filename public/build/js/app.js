@@ -176,21 +176,10 @@ app.config(['OAuthProvider','OAuthTokenProvider','$routeProvider', '$httpProvide
                 templateUrl: 'build/views/project_member/list.html',
                 controller: 'ProjectMemberListController'
             })
-            .when('/project/:id/member/:idMember/edit', {
-                templateUrl: 'build/views/project_member/edit.html',
-                controller: 'ProjectMemberEditController'
-            })
-            .when('/project/:id/member/new', {
-                templateUrl: 'build/views/project_member/new.html',
-                controller: 'ProjectMemberNewController'
-            })
-            .when('/project/:id/member/:idMember/remove', {
+
+            .when('/project/:id/member/:idProjectMember/remove', {
                 templateUrl: 'build/views/project_member/remove.html',
                 controller: 'ProjectMemberRemoveController'
-            })
-            .when('/project/:id/member/:idMember', {
-                templateUrl: 'build/views/project_member/show.html',
-                controller: 'ProjectMemberShowController'
             });
 
         OAuthProvider.configure({
