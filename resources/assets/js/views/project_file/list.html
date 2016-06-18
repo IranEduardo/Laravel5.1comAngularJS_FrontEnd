@@ -17,12 +17,12 @@
                                  <td>{{pf.name}}</td>
                                  <td>{{pf.description | limitTo:30}}</td>
                                  <td>
-                                     <project-file-download id-file="{{pf.id}}"></project-file-download>
+                                     <project-file-download id-project="{{pf.project_id}}" id-file="{{pf.id}}"></project-file-download>
                                  </td>
-                                 <td><a ng-href="#/project/{{pf.project_id}}/files/{{pf.id}}/edit">
+                                 <td><a ng-href="#/project/{{pf.project_id}}/file/{{pf.id}}/edit">
                                         Edit
                                      </a> |
-                                     <a ng-href="#/project/{{pf.project_id}}/files/{{pf.id}}/remove">
+                                     <a ng-href="#/project/{{pf.project_id}}/file/{{pf.id}}/remove">
                                         Excluir
                                      </a>
                                  </td>

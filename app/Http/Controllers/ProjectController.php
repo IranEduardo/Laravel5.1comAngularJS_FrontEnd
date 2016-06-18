@@ -32,7 +32,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return  $this->repository->findWithOwnerAndMember(\Authorizer::getResourceOwnerId())->all();
+        return  $this->repository->findWithOwnerAndMember(\Authorizer::getResourceOwnerId());
     }
 
 

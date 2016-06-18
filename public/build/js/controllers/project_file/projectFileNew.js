@@ -5,7 +5,7 @@ angular.module('app.controllers')
             $scope.save = function(){
                 if ($scope.form.$valid) {
                     var url = appConfig.baseUrl + Url.getUrlFromUrlSymbol(appConfig.urls.projectFile,{
-                          id: '',
+                          id: $routeParams.id,
                           idFile: ''
                         });
                     Upload.upload({

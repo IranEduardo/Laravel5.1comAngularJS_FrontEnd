@@ -22,6 +22,8 @@ class ProjectMemberController extends Controller
         $this->service = $service;
         $this->validator = $validator;
         $this->service_project = $service_project;
+        $this->middleware('check.project.owner', ['except' => ['index','show']]);
+        $this->middleware('check.project.permission', ['except' => ['store','destroy']]);
 
     }
 
