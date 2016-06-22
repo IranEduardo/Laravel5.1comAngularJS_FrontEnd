@@ -126,6 +126,8 @@
 		<script src="{{	asset("build/js/services/projectFile.js") }} "></script>
 		<script src="{{	asset("build/js/services/projectTask.js") }} "></script>
 		<script src="{{	asset("build/js/services/projectMember.js") }} "></script>
+		<script src="{{	asset("build/js/services/oauthFixInterceptor.js") }} "></script>
+
 
 		<!-- OAuth2 !-->
 		<script src="{{	asset("build/js/vendor/angular-cookies.min.js") }} "></script>
