@@ -1,7 +1,8 @@
 var app = angular.module('app',['app.controllers', 'ngRoute', 'angular-oauth2']);
 
 angular.module('app.controllers',['angular-oauth2', 'ngMessages', 'app.services', 'app.directives',
-               'ui.bootstrap.typeahead', 'ui.bootstrap.datepickerPopup' ,'ui.bootstrap.tpls', 'ngFileUpload']);
+               'ui.bootstrap.typeahead', 'ui.bootstrap.datepickerPopup' ,
+               'ui.bootstrap.tpls', 'ui.bootstrap.modal', 'ngFileUpload', 'http-auth-interceptor']);
 
 angular.module('app.services',['ngResource']);
 angular.module('app.directives',[]);
@@ -66,6 +67,8 @@ app.config(['OAuthProvider','OAuthTokenProvider','$routeProvider', '$httpProvide
             'application/x-www-form-urlencoded;charset-utf-8';
         $httpProvider.defaults.transformRequest = appConfigProvider.config.utils.transformRequest;
         $httpProvider.defaults.transformResponse = appConfigProvider.config.utils.transformResponse;
+        $httpProvider.interceptors.splice(0,1);
+        $httpProvider.interceptors.splice(0,1);
         $httpProvider.interceptors.push('oauthFixInterceptor');
 
 
@@ -211,7 +214,8 @@ app.config(['OAuthProvider','OAuthTokenProvider','$routeProvider', '$httpProvide
 
 ]);
 
-app.run(['$rootScope', '$location', '$http', 'OAuth', function($rootScope, $location, $http, OAuth) {
+app.run(['$rootScope', '$location', '$http', '$uibModal','httpBuffer', 'OAuth',
+  function($rootScope, $location, $http, $uibModal, httpBuffer, OAuth) {
 
         $rootScope.$on('$routeChangeStart', function(event,next,current){
             if (next.$$route.originalPath != '/login') {
@@ -229,20 +233,15 @@ app.run(['$rootScope', '$location', '$http', 'OAuth', function($rootScope, $loca
 
             // Refresh token when a `invalid_token` error occurs.
             if ('access_denied' === data.rejection.data.error) {
-                if (!$rootScope.isRefreshingToken) {
-                    $rootScope.isRefreshingToken = true;
-                    return OAuth.getRefreshToken().then(function (success) {
-                        $rootScope.isRefreshingToken = false;
-                        return $http(data.rejection.config).then(function (response) {
-                            return data.deferred.resolve(response);
-                        });
+                 httpBuffer.append(data.rejection.config, data.deferred);
+                if (!$rootScope.loginModalOpened) {
+                    var modalInstance = $uibModal.open({
+                        templateUrl: 'build/views/templates/loginModal.html',
+                        controller: 'LoginModalController'
                     });
+                    $rootScope.loginModalOpened = true;
                 }
-                else {
-                    return $http(data.rejection.config).then(function (response) {
-                        return data.deferred.resolve(response);
-                    });
-                }
+                return;
             }
 
             // Redirect to `/login` with the `error_reason`.

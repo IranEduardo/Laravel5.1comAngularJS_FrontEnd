@@ -24,7 +24,7 @@ angular.module('app.controllers')
 
                     $scope.project.owner_id = $cookies.getObject('user').id;
 
-                    Project.update({id: $scope.project.id},$scope.project, function () {
+                    Project.update({project: $scope.project.id},$scope.project, function () {
                         $location.path('/projects');
                     });
                 }
