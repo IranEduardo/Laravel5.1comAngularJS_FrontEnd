@@ -115,8 +115,9 @@ class ProjectService
        $userId =  \Authorizer::getResourceOwnerId();
 
        foreach ($project->members as $member) {
-           if ($member->user_id == $userId)
+           if ($member->id == $userId) {
                return true;
+           }
        }
        return false;
    }

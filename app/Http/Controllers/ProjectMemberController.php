@@ -41,9 +41,6 @@ class ProjectMemberController extends Controller
 
     public function destroy($id, $idMember)
     {
-        if (($this->service_project->checkProjectOwner(($id))) == false)
-            return ['error' => 'Access Forbidden'];
-
         return $this->service->destroy($id, $idMember);
     }
 

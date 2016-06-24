@@ -62,7 +62,7 @@ class ProjectNoteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($idNote)
+    public function destroy($id, $idNote)
     {
         return $this->service->destroy($idNote);
     }
